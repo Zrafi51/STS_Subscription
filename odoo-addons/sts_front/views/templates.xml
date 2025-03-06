@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Homepage Template -->
+    <template id="homepage_template" name="STS Homepage">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 text-center">
+                        <h1 class="mb-4">Welcome to STS Transport</h1>
+                        <p class="lead mb-4">Manage your transport subscriptions easily and securely</p>
+                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                            <a href="/auth/login" class="btn btn-primary btn-lg px-4 gap-3">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Signup Template -->
+    <template id="signup_template" name="Signup Page">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title text-center mb-4">Create Your Account</h2>
+                                <t t-if="error" class="alert alert-danger" role="alert">
+                                    <t t-esc="error"/>
+                                </t>
+                                <form action="/auth/signup" method="post">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" name="name" required="1"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="surname" class="form-label">Surname</label>
+                                        <input type="text" class="form-control" name="surname" required="1"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" name="phone" required="1" placeholder="+216 XX XXX XXX"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" name="password" required="1"/>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Login Template -->
+    <template id="login_template" name="Login Page">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title text-center mb-4">Login to Your Account</h2>
+                                <t t-if="error" class="alert alert-danger" role="alert">
+                                    <t t-esc="error"/>
+                                </t>
+                                <form action="/auth/login" method="post">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="mb-3">
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" name="phone" required="1" placeholder="+216 XX XXX XXX"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" name="password" required="1"/>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary">Login</button>
+                                        <a href="/auth/signup" class="btn btn-secondary">Sign Up</a>
+                                        <a href="/auth/forgot-password" class="btn btn-link">Forgot Password?</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Forgot Password Template -->
+    <template id="forgot_password_template" name="Forgot Password">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title text-center mb-4">Password Recovery</h2>
+                                <t t-if="error" class="alert alert-danger" role="alert">
+                                    <t t-esc="error"/>
+                                </t>
+                                <form action="/auth/forgot-password" method="post">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="mb-3">
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" name="phone" required="1" placeholder="+216 XX XXX XXX"/>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary">Send Recovery Code</button>
+                                        <a href="/auth/login" class="btn btn-secondary">Back to Login</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Reset Password Template -->
+    <template id="reset_password_template" name="Reset Password">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title text-center mb-4">Reset Your Password</h2>
+                                <t t-if="error" class="alert alert-danger" role="alert">
+                                    <t t-esc="error"/>
+                                </t>
+                                <form action="/auth/reset-password" method="post">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <input type="hidden" name="user_id" t-att-value="user_id"/>
+                                    <div class="mb-3">
+                                        <label for="code" class="form-label">Verification Code</label>
+                                        <input type="text" class="form-control" name="code" required="1"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="new_password" class="form-label">New Password</label>
+                                        <input type="password" class="form-control" name="new_password" required="1"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="confirm_password" class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" name="confirm_password" required="1"/>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary">Reset Password</button>
+                                        <a href="/auth/login" class="btn btn-secondary">Back to Login</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Data Template -->
+    <template id="Data_template" name="Data Page">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title text-center mb-4">Complete Your Profile</h2>
+                                <form action="/sts/save-profile" method="post">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" name="name" required="1"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="date_of_birth" class="form-label">Date of Birth</label>
+                                        <input type="date" class="form-control" name="date_of_birth" required="1"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="user_type" class="form-label">User Type</label>
+                                        <select class="form-select" name="user_type" required="1" onchange="toggleFields(this.value)">
+                                            <option value="student">Student</option>
+                                            <option value="intern">Intern</option>
+                                            <option value="schoolboy">Schoolboy</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="institution" class="form-label">Institution</label>
+                                        <input type="text" class="form-control" name="institution"/>
+                                    </div>
+                                    <div id="student_fields">
+                                        <div class="mb-3">
+                                            <label for="university_id" class="form-label">University ID</label>
+                                            <input type="text" class="form-control" name="university_id"/>
+                                        </div>
+                                    </div>
+                                    <div id="schoolboy_fields" style="display: none;">
+                                        <div class="mb-3">
+                                            <label for="school_id" class="form-label">School ID</label>
+                                            <input type="text" class="form-control" name="school_id"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="parent_name" class="form-label">Parent's Name</label>
+                                            <input type="text" class="form-control" name="parent_name"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="cin" class="form-label">CIN</label>
+                                        <input type="text" class="form-control" name="cin" required="1"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="profile_picture" class="form-label">Profile Picture</label>
+                                        <input type="file" class="form-control" name="profile_picture"/>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">Save and Continue</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function toggleFields(userType) {
+                    const studentFields = document.getElementById('student_fields');
+                    const schoolboyFields = document.getElementById('schoolboy_fields');
+                    
+                    if (userType === 'schoolboy') {
+                        studentFields.style.display = 'none';
+                        schoolboyFields.style.display = 'block';
+                    } else {
+                        studentFields.style.display = 'block';
+                        schoolboyFields.style.display = 'none';
+                    }
+                }
+            </script>
+        </t>
+    </template>
+
+    <!-- Subscription Template -->
+    <template id="subscription_template" name="Subscription Page">
+    <t t-call="website.layout">
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title text-center mb-4">Create Subscription</h2>
+                            <t t-if="error" class="alert alert-danger" role="alert">
+                                <t t-esc="error"/>
+                            </t>
+                            <form action="/sts/subscription" method="post">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                <!-- Subscription Period -->
+                                <div class="mb-3">
+                                    <label class="form-label">Subscription Period</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="subscription_period" id="semester" value="semester" required="1"/>
+                                        <label class="form-check-label" for="semester">Semester (15/09 - 15/12)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="subscription_period" id="annual" value="annual" required="1"/>
+                                        <label class="form-check-label" for="annual">Annual (15/09 - 30/06)</label>
+                                    </div>
+                                </div>
+
+                                <!-- Include Holidays -->
+                                <div class="mb-3">
+                                    <label class="form-label">Include Holidays</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="include_holidays" id="with_holidays" value="true" required="1"/>
+                                        <label class="form-check-label" for="with_holidays">With Holidays</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="include_holidays" id="without_holidays" value="false" required="1"/>
+                                        <label class="form-check-label" for="without_holidays">Without Holidays</label>
+                                    </div>
+                                </div>
+
+                                <!-- State and Side Selection -->
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="state_name" class="form-label">State</label>
+                                        <select class="form-select" name="state_name" required="1" id="stateSelect" onchange="filterSides()">
+                                            <option value="">Loading states...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="side_name" class="form-label">Side</label>
+                                        <select class="form-select" name="side_name" required="1" id="sideSelect" onchange="filterRoutes()" disabled="disabled">
+                                            <option value="">Select State First</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Route Selection -->
+                                <div class="mb-3">
+                                    <label for="route_id" class="form-label">Route</label>
+                                    <select class="form-select" name="route_id" required="1" id="routeSelect" onchange="updateTariff()" disabled="disabled">
+                                        <option value="">Select Route</option>
+                                    </select>
+                                </div>
+
+                                <!-- Base Tariff Display -->
+                                <div class="mb-3">
+                                    <label class="form-label">Base Tariff</label>
+                                    <div id="tariff_display" class="form-control-plaintext">--</div>
+                                </div>
+
+                                <!-- Card Receiving Point -->
+                                <div class="mb-3">
+                                    <label for="receiving_point" class="form-label">Card Receiving Point</label>
+                                    <select class="form-select" name="receiving_point" required="1" id="receivingPointSelect" disabled="disabled">
+                                        <option value="">Select Receiving Point</option>
+                                    </select>
+                                </div>
+
+                                <!-- Proceed to Payment Button -->
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            <![CDATA[
+                document.addEventListener('DOMContentLoaded', function() {
+                    console.log('Loading states...');
+                    fetch('/api/states')
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok: ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('States loaded:', data.states);
+                            const stateSelect = document.getElementById('stateSelect');
+                            stateSelect.innerHTML = '<option value="">Select State</option>';
+                            data.states.forEach(state => {
+                                const option = document.createElement('option');
+                                option.value = state;
+                                option.textContent = state.charAt(0).toUpperCase() + state.slice(1);
+                                stateSelect.appendChild(option);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error loading states:', error);
+                            alert('Failed to load states. Please try again later.');
+                        });
+                });
+
+                function filterSides() {
+                    const state = document.getElementById('stateSelect').value;
+                    const sideSelect = document.getElementById('sideSelect');
+                    const routeSelect = document.getElementById('routeSelect');
+                    const receivingPointSelect = document.getElementById('receivingPointSelect');
+
+                    if (state) {
+                        console.log('Fetching sides for state:', state);
+                        fetch('/api/sides?state=' + state)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok: ' + response.statusText);
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log('Sides loaded:', data.sides);
+                                sideSelect.innerHTML = '<option value="">Select Side</option>';
+                                data.sides.forEach(side => {
+                                    const option = document.createElement('option');
+                                    option.value = side;
+                                    option.textContent = side;
+                                    sideSelect.appendChild(option);
+                                });
+                                sideSelect.disabled = false;
+                                routeSelect.disabled = true;
+                                receivingPointSelect.disabled = true;
+                            })
+                            .catch(error => {
+                                console.error('Error loading sides:', error);
+                                alert('Failed to load sides. Please try again later.');
+                            });
+                    } else {
+                        sideSelect.innerHTML = '<option value="">Select State First</option>';
+                        sideSelect.disabled = true;
+                        routeSelect.disabled = true;
+                        receivingPointSelect.disabled = true;
+                    }
+                }
+
+                function filterRoutes() {
+                    const state = document.getElementById('stateSelect').value;
+                    const side = document.getElementById('sideSelect').value;
+                    const routeSelect = document.getElementById('routeSelect');
+                    const receivingPointSelect = document.getElementById('receivingPointSelect');
+
+                    if (state && side) {
+                        fetch('/api/routes?state=' + state + '&side=' + side)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                routeSelect.innerHTML = '<option value="">Select Route</option>';
+                                data.forEach(route => {
+                                    const option = document.createElement('option');
+                                    option.value = route.id;
+                                    option.textContent = route.departure + ' → ' + route.arrival;
+                                    routeSelect.appendChild(option);
+                                });
+                                routeSelect.disabled = false;
+                                receivingPointSelect.disabled = true;
+                            })
+                            .catch(error => {
+                                console.error('Error loading routes:', error);
+                                alert('Failed to load routes. Please try again later.');
+                            });
+                    } else {
+                        routeSelect.innerHTML = '<option value="">Select Route</option>';
+                        routeSelect.disabled = true;
+                        receivingPointSelect.disabled = true;
+                    }
+                }
+
+                function updateTariff() {
+                    const routeId = document.getElementById('routeSelect').value;
+                    const receivingPointSelect = document.getElementById('receivingPointSelect');
+
+                    if (routeId) {
+                        fetch('/api/route/tariff?route_id=' + routeId)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                document.getElementById('tariff_display').textContent = data.tariff + ' TND';
+                                fetch('/api/receiving-points?route_id=' + routeId)
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error('Network response was not ok');
+                                        }
+                                        return response.json();
+                                    })
+                                    .then(points => {
+                                        receivingPointSelect.innerHTML = '<option value="">Select Receiving Point</option>';
+                                        points.forEach(point => {
+                                            const option = document.createElement('option');
+                                            option.value = point.id;
+                                            option.textContent = point.name;
+                                            receivingPointSelect.appendChild(option);
+                                        });
+                                        receivingPointSelect.disabled = false;
+                                    })
+                                    .catch(error => {
+                                        console.error('Error loading receiving points:', error);
+                                        alert('Failed to load receiving points. Please try again later.');
+                                    });
+                            })
+                            .catch(error => {
+                                console.error('Error loading tariff:', error);
+                                alert('Failed to load tariff. Please try again later.');
+                            });
+                    } else {
+                        document.getElementById('tariff_display').textContent = '--';
+                        receivingPointSelect.innerHTML = '<option value="">Select Receiving Point</option>';
+                        receivingPointSelect.disabled = true;
+                    }
+                }
+            ]]>
+        </script>
+    </t>
+</template>
+    
+</odoo>

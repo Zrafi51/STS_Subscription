@@ -1,0 +1,27 @@
+<odoo>
+    <menuitem id="menu_sts_root" 
+              name="STS Abonnements" 
+              sequence="10"/>
+
+    <menuitem id="menu_sts_abonnement" 
+              name="Gestion" 
+              parent="menu_sts_root" 
+              sequence="10"/>
+
+    <menuitem id="menu_abonne" 
+              name="Abonnés" 
+              parent="menu_sts_abonnement" 
+              action="action_abonne" 
+              sequence="10"/>
+
+    <menuitem id="menu_abonnement" 
+              name="Abonnements" 
+              parent="menu_sts_abonnement" 
+              action="action_abonnement" 
+              sequence="20"/>
+    <menuitem id="menu_payment_transaction" 
+              name="Payment Transactions" 
+              parent="menu_sts_abonnement" 
+              action="action_payment_transaction" 
+              sequence="30"/>
+</odoo>

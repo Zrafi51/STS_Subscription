@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_auth_root" name="Authentication" sequence="5"/>
+
+    <menuitem id="menu_auth_users" name="Users" parent="menu_auth_root" action="action_auth_users" sequence="10"/>
+</odoo>

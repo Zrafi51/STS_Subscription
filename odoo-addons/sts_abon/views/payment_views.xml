@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_payment_transaction_tree" model="ir.ui.view">
+        <field name="name">sts_abon.payment_transaction.tree</field>
+        <field name="model">sts_abon.payment_transaction</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="subscription_id"/>
+                <field name="amount"/>
+                <field name="transaction_id"/>
+                <field name="status"/>
+                <field name="payment_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_payment_transaction_form" model="ir.ui.view">
+        <field name="name">sts_abon.payment_transaction.form</field>
+        <field name="model">sts_abon.payment_transaction</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="subscription_id"/>
+                        <field name="amount"/>
+                        <field name="transaction_id"/>
+                        <field name="status"/>
+                        <field name="payment_date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_payment_transaction" model="ir.actions.act_window">
+        <field name="name">Payment Transactions</field>
+        <field name="res_model">sts_abon.payment_transaction</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

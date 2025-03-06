@@ -1,0 +1,42 @@
+<odoo>
+    <record id="view_abonnement_form" model="ir.ui.view">
+        <field name="name">sts_abon.abonnement.form</field>
+        <field name="model">sts_abon.abonnement</field>
+        <field name="arch" type="xml">
+            <form string="Abonnement">
+                <sheet>
+                    <group>
+                        <!--<field name="user_id"/>-->
+                        <field name="subscription_type_1"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="subscription_type_2"/>
+                        <!--<field name="payment_status"/>-->
+                        <field name="route_ids"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_abonnement_tree" model="ir.ui.view">
+        <field name="name">sts_abon.abonnement.tree</field>
+        <field name="model">sts_abon.abonnement</field>
+        <field name="arch" type="xml">
+            <tree>
+                <!--<field name="user_id"/>-->
+                <field name="subscription_type_1"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="subscription_type_2"/>
+                <!--<field name="payment_status"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_abonnement" model="ir.actions.act_window">
+        <field name="name">Abonnement</field>
+        <field name="res_model">sts_abon.abonnement</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

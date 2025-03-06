@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_resroutier_root" name="Transport Routes" sequence="20"/>
+
+    <menuitem id="menu_resroutier_routes" name="Routes" parent="menu_resroutier_root" action="action_resroutier_routes" sequence="10"/>
+
+    <menuitem id="menu_resroutier_stops" name="Stops" parent="menu_resroutier_root" action="action_resroutier_stops" sequence="20"/>
+</odoo>

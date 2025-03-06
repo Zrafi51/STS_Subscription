@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_api_services_cin_api,access.api_services.cin_api,model_api_services_cin_api,,1,1,1,1
+access_api_services_school_api,access.api_services.school_api,model_api_services_school_api,,1,1,1,1
+access_api_services_university_api,access.api_services.university_api,model_api_services_university_api,,1,1,1,1
+access_api_services_sms_api,access.api_services.sms_api,model_api_services_sms_api,,1,1,1,1
