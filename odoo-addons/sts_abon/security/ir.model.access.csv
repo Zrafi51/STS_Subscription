@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sts_abon_user,Access STS User,model_sts_abon_user,,1,1,1,1
+access_sts_abon_abonne,Access STS Abonne,model_sts_abon_abonne,,1,1,1,1
+access_sts_abon_abonnement,Access STS Abonnement,model_sts_abon_abonnement,,1,1,1,1
+access_sts_abon_payment_transaction,Access STS Payment Transaction,model_sts_abon_payment_transaction,,1,1,1,1

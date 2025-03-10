@@ -1,0 +1,39 @@
+<odoo>
+    <!-- Tree view for Users -->
+    <record id="view_auth_user_tree" model="ir.ui.view">
+        <field name="name">auth.user.tree</field>
+        <field name="model">sts_abon.user</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="full_name"/>
+                <field name="phone"/>
+                <field name="is_verified"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view for Users -->
+    <record id="view_auth_user_form" model="ir.ui.view">
+        <field name="name">auth.user.form</field>
+        <field name="model">sts_abon.user</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="surname"/>
+                        <field name="phone"/>
+                        <field name="is_verified"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for Users -->
+    <record id="action_auth_users" model="ir.actions.act_window">
+        <field name="name">Users</field>
+        <field name="res_model">sts_abon.user</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

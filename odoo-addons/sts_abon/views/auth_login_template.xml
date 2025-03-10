@@ -1,0 +1,9 @@
+<odoo>
+
+    <template id="auth_login" inherit_id="web.login" name="Login with phone number">
+        <xpath expr="//button[@type='submit']" position="after">
+            <a href="/auth/login" class="btn btn-link pull-right">Login with phone number</a>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_resroutier_route,Access Resroutier Route,model_resroutier_route,,1,1,1,1
+access_resroutier_stop,Access Resroutier Stop,model_resroutier_stop,,1,1,1,1
+access_resroutier_schedule,Access Resroutier Schedule,model_resroutier_schedule,,1,1,1,1
+access_resroutier_tariff,Access Resroutier Tariff,model_resroutier_tariff,,1,1,1,1

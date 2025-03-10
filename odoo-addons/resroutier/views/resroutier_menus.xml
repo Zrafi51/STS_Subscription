@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Root menu for Transport Routes -->
+    <menuitem id="menu_resroutier_root" name="Transport Routes" sequence="20"/>
+
+    <!-- Submenu for Routes -->
+    <menuitem id="menu_resroutier_routes" name="Routes" parent="menu_resroutier_root" action="action_resroutier_routes" sequence="10"/>
+
+    <!-- Submenu for Stops -->
+    <menuitem id="menu_resroutier_stops" name="Stops" parent="menu_resroutier_root" action="action_resroutier_stops" sequence="20"/>
+</odoo>

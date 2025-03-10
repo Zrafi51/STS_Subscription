@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="data_template" name="Data Page">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title text-center mb-4">Complete Your Profile</h2>
+                                <form action="/sts/save-profile" method="post">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" name="name" required="1"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="date_of_birth" class="form-label">Date of Birth</label>
+                                        <input type="date" class="form-control" name="date_of_birth" required="1"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="user_type" class="form-label">User Type</label>
+                                        <select class="form-select" name="user_type" required="1" onchange="toggleFields(this.value)">
+                                            <option value="student">Student</option>
+                                            <option value="intern">Intern</option>
+                                            <option value="schoolboy">Schoolboy</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="institution" class="form-label">Institution</label>
+                                        <input type="text" class="form-control" name="institution"/>
+                                    </div>
+                                    <div id="student_fields">
+                                        <div class="mb-3">
+                                            <label for="university_id" class="form-label">University ID</label>
+                                            <input type="text" class="form-control" name="university_id"/>
+                                        </div>
+                                    </div>
+                                    <div id="schoolboy_fields" style="display: none;">
+                                        <div class="mb-3">
+                                            <label for="school_id" class="form-label">School ID</label>
+                                            <input type="text" class="form-control" name="school_id"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="parent_name" class="form-label">Parent's Name</label>
+                                            <input type="text" class="form-control" name="parent_name"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="cin" class="form-label">CIN</label>
+                                        <input type="text" class="form-control" name="cin" required="1"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="profile_picture" class="form-label">Profile Picture</label>
+                                        <input type="file" class="form-control" name="profile_picture"/>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">Save and Continue</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function toggleFields(userType) {
+                    const studentFields = document.getElementById('student_fields');
+                    const schoolboyFields = document.getElementById('schoolboy_fields');
+                    
+                    if (userType === 'schoolboy') {
+                        studentFields.style.display = 'none';
+                        schoolboyFields.style.display = 'block';
+                    } else {
+                        studentFields.style.display = 'block';
+                        schoolboyFields.style.display = 'none';
+                    }
+                }
+            </script>
+        </t>
+    </template>
+</odoo>

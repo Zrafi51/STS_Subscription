@@ -1,0 +1,57 @@
+services:
+  db_app:
+    container_name: db_app    
+    image: postgres:15
+    user: root
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=app@sts2025
+      - POSTGRES_DB=postgres 
+    restart: always
+    volumes:
+      - ./postgresql:/var/lib/postgresql/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      network:
+        ipv4_address: 10.8.0.2
+
+  pgadmin_app:
+    container_name: pgadmin_app    
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: zrafimehdi5@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: app@sts2025
+    ports: 
+      - "5080:80"
+    networks:
+      network:
+        ipv4_address: 10.8.0.3
+
+  odoo_app:
+    container_name: odoo_app
+    image: odoo:17
+    restart: always
+    environment:
+      - HOST=db_app
+      - USER=odoo
+      - PASSWORD=app@sts2025
+    ports:
+      - "10018:8069"
+      - "20018:8072"
+    volumes:
+      - ./odoo-addons:/mnt/extra-addons
+    depends_on:
+      - db_app
+    networks:
+      network:
+        ipv4_address: 10.8.0.4
+
+
+networks:
+  network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.8.0.0/24

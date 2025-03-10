@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Tree view for Abonnés -->
+    <record id="view_abonne_tree" model="ir.ui.view">
+        <field name="name">sts_abon.abonne.tree</field>
+        <field name="model">sts_abon.abonne</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="user_type"/>
+                <field name="cin"/>
+                <field name="parent_name" invisible="user_type != 'schoolboy'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view for Abonnés -->
+    <record id="view_abonne_form" model="ir.ui.view">
+        <field name="name">sts_abon.abonne.form</field>
+        <field name="model">sts_abon.abonne</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="date_of_birth"/>
+                        <field name="user_type"/>
+                        <field name="institution"/>
+                    </group>
+                    <group>
+                        <field name="university_id" invisible="user_type != 'student'"/>
+                        <field name="university_id" invisible="user_type != 'intern'"/>
+                        <field name="school_id" invisible="user_type != 'schoolboy'"/>
+                        <field name="parent_name" invisible="user_type != 'schoolboy'"/>
+                        <field name="cin"/>
+                        <field name="profile_picture"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for Abonnés -->
+    <record id="action_abonne" model="ir.actions.act_window">
+        <field name="name">Abonnés</field>
+        <field name="res_model">sts_abon.abonne</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Tree view for Routes -->
+    <record id="view_resroutier_route_tree" model="ir.ui.view">
+        <field name="name">resroutier.route.tree</field>
+        <field name="model">resroutier.route</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="route_name"/>
+                <field name="departure_stop_id"/>
+                <field name="arrival_stop_id"/>
+                <field name="tariff"/>
+                <field name="centre_exploitation"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view for Routes -->
+    <record id="view_resroutier_route_form" model="ir.ui.view">
+        <field name="name">resroutier.route.form</field>
+        <field name="model">resroutier.route</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="route_name"/>
+                        <field name="departure_stop_id"/>
+                        <field name="arrival_stop_id"/>
+                        <field name="tariff"/>
+                        <field name="centre_exploitation"/>
+                        <field name="notes"/>
+                    </group>
+                    <notebook>
+                        <page string="Schedules">
+                            <field name="schedule_ids">
+                                <tree editable="bottom">
+                                    <field name="departure_time"/>
+                                    <field name="arrival_time"/>
+                                    <field name="frequency"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for Routes -->
+    <record id="action_resroutier_routes" model="ir.actions.act_window">
+        <field name="name">Routes</field>
+        <field name="res_model">resroutier.route</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Tree view for Stops -->
+    <record id="view_resroutier_stop_tree" model="ir.ui.view">
+        <field name="name">resroutier.stop.tree</field>
+        <field name="model">resroutier.stop</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="location"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view for Stops -->
+    <record id="view_resroutier_stop_form" model="ir.ui.view">
+        <field name="name">resroutier.stop.form</field>
+        <field name="model">resroutier.stop</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="location"/>
+                        <field name="coordinates"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for Stops -->
+    <record id="action_resroutier_stops" model="ir.actions.act_window">
+        <field name="name">Stops</field>
+        <field name="res_model">resroutier.stop</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
