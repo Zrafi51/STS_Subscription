@@ -4,6 +4,7 @@ class Abonne(models.Model):
     _name = 'sts_abon.abonne'
     _description = 'Abonnement de la STS'
 
+    user_id = fields.Many2one('sts_abon.user', string='User', required=True)
     name = fields.Char(string='Full Name', required=True)
     date_of_birth = fields.Date(string='Date of Birth', required=True)
     user_type = fields.Selection([('intern', 'Intern'), ('student', 'Student'), ('schoolboy', 'Schoolboy')], string='User Type', required=True)

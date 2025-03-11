@@ -5,46 +5,39 @@ from werkzeug.exceptions import BadRequest
 
 class SubscriptionController(http.Controller):
 
+
     @http.route('/sts/subscription', type='http', auth='user', website=True)
     def subscription_page(self, **kwargs):
         if request.httprequest.method == 'POST':
             try:
+                user = request.env.user
+                abonne_id = int(kwargs.get('abonne_id'))  # Get the selected profile ID
+                abonne = request.env['sts_abon.abonne'].sudo().browse(abonne_id)
+
                 values = {
+                    'abonne_id': abonne.id,  # Link the subscription to the selected profile
                     'subscription_type_1': kwargs.get('subscription_period'),
                     'subscription_type_2': 'special_tariff' if kwargs.get('include_holidays') == 'true' else 'normal_tariff',
                     'route_ids': [(4, int(kwargs.get('route_id')))] if kwargs.get('route_id') else False,
-                    'card_receiving_point': kwargs.get('receiving_point'),
                 }
-        
-                # Create subscription
                 subscription = request.env['sts_abon.abonnement'].sudo().create(values)
-        
-                # Create abonne record
-                abonne_values = {
-                    'name': request.env.user.name,
-                    'date_of_birth': kwargs.get('date_of_birth'),
-                    'user_type': request.env.user.user_type,
-                    'institution': kwargs.get('institution'),
-                    'university_id': kwargs.get('university_id'),
-                    'school_id': kwargs.get('school_id'),
-                    'parent_name': kwargs.get('parent_name'),
-                    'cin': kwargs.get('cin'),
-                }
-                abonne = request.env['sts_abon.abonne'].sudo().create(abonne_values)
-        
                 return request.redirect(f'/sts/subscription/{subscription.id}')
             except Exception as e:
                 routes = request.env['resroutier.route'].sudo().search([])
+                abonnes = request.env['sts_abon.abonne'].sudo().search([('user_id', '=', request.env.user.id)])
                 return request.render('sts_abon.subscription_template', {
                     'error': str(e),
-                    'routes': routes
+                    'routes': routes,
+                    'abonnes': abonnes,  # Pass the list of profiles to the template
                 })
         
         routes = request.env['resroutier.route'].sudo().search([])
+        abonnes = request.env['sts_abon.abonne'].sudo().search([('user_id', '=', request.env.user.id)])
         return request.render('sts_abon.subscription_template', {
-            'routes': routes
+            'routes': routes,
+            'abonnes': abonnes,  # Pass the list of profiles to the template
         })
-
+    
     @http.route('/api/subscription/create', type='json', auth='public', methods=['POST'])
     def create_subscription(self, **kwargs):
         try:

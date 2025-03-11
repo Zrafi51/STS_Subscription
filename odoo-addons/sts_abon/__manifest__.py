@@ -15,6 +15,8 @@
         'views/auth_login_template.xml',
         'views/auth_signup_template.xml',
         'views/templates/signup_template.xml',
+        'views/templates/homepage_template.xml',
+        'views/templates/verification_template.xml',
         'views/templates/login_template.xml',
         'views/templates/forgot_password_template.xml',
         'views/templates/reset_password_template.xml',

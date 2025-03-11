@@ -1,0 +1,21 @@
+<odoo>
+    <template id="homepage_template" name="Homepage">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title text-center mb-4">Welcome to STS Abonnement</h2>
+                                <div class="d-grid gap-2">
+                                    <a href="/sts/save-profile" class="btn btn-primary">Create New Profile</a>
+                                    <a href="/sts/subscription" class="btn btn-secondary">Create Subscription</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

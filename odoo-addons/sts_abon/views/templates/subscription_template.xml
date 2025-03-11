@@ -14,6 +14,19 @@
                                 <form action="/sts/subscription" method="post">
                                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
 
+                                    <!-- Profile Selection -->
+                                    <div class="mb-3">
+                                        <label for="abonne_id" class="form-label">Select Profile</label>
+                                        <select class="form-select" name="abonne_id" id="abonne_id" required="1">
+                                            <option value="">Select Profile</option>
+                                            <t t-foreach="abonnes" t-as="abonne">
+                                                <option t-att-value="abonne.id">
+                                                    <t t-esc="abonne.name"/> (<t t-esc="abonne.user_type"/>)
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+
                                     <!-- Subscription Period -->
                                     <div class="mb-3">
                                         <label class="form-label">Subscription Period</label>
@@ -59,14 +72,6 @@
                                         <div id="tariff_display" class="form-control-plaintext">--</div>
                                     </div>
 
-                                    <!-- Card Receiving Point -->
-                                    <div class="mb-3">
-                                        <label for="receiving_point" class="form-label">Card Receiving Point</label>
-                                        <select class="form-select" name="receiving_point" id="receivingPointSelect" required="1">
-                                            <option value="">Select Receiving Point</option>
-                                        </select>
-                                    </div>
-
                                     <!-- Proceed to Payment Button -->
                                     <div class="d-grid">
                                         <button type="submit" class="btn btn-primary">Proceed to Payment</button>
@@ -82,24 +87,15 @@
                     function updateTariff() {
                         const routeSelect = document.getElementById('routeSelect');
                         const tariffDisplay = document.getElementById('tariff_display');
-                        const receivingPointSelect = document.getElementById('receivingPointSelect');
 
                         if (routeSelect.value) {
                             fetch(`/api/route/tariff?route_id=${routeSelect.value}`)
                                 .then(response => response.json())
                                 .then(data => {
                                     tariffDisplay.textContent = `${data.tariff} TND`;
-                                    receivingPointSelect.innerHTML = '<option value="">Select Receiving Point</option>';
-                                    data.receiving_points.forEach(point => {
-                                        const option = document.createElement('option');
-                                        option.value = point.id;
-                                        option.textContent = point.name;
-                                        receivingPointSelect.appendChild(option);
-                                    });
                                 });
                         } else {
                             tariffDisplay.textContent = '--';
-                            receivingPointSelect.innerHTML = '<option value="">Select Receiving Point</option>';
                         }
                     }
                 ]]>

@@ -9,7 +9,8 @@ class User(models.Model):
     _name = 'sts_abon.user'
     #_inherit = 'res.users'
     _description = 'Authentication and User Management'
-    
+
+    abonne_ids = fields.Many2many('sts_abon.abonne', string='Subscriber Profiles')
     name = fields.Char(string='Name', required=True)
     surname = fields.Char(string='Surname', required=True)
     full_name = fields.Char(string='Full Name', compute='_compute_full_name', store=True)

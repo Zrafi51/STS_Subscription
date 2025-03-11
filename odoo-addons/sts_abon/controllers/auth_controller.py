@@ -6,6 +6,29 @@ _logger = logging.getLogger(__name__)
 
 class AuthController(http.Controller):
 
+
+    @http.route('/sts/save-profile', type='http', auth='user', website=True)
+    def create_profile(self, **kwargs):
+        if request.httprequest.method == 'POST':
+            try:
+                user = request.env.user
+                abonne_values = {
+                    'user_id': user.id,  # Link the profile to the current user
+                    'name': kwargs.get('name'),
+                    'date_of_birth': kwargs.get('date_of_birth'),
+                    'user_type': kwargs.get('user_type'),
+                    'institution': kwargs.get('institution'),
+                    'university_id': kwargs.get('university_id'),
+                    'school_id': kwargs.get('school_id'),
+                    'parent_name': kwargs.get('parent_name'),
+                    'cin': kwargs.get('cin'),
+                }
+                abonne = request.env['sts_abon.abonne'].sudo().create(abonne_values)
+                return request.redirect('/sts/subscription')
+            except Exception as e:
+                return request.render('sts_abon.data_template', {'error': str(e)})
+        return request.render('sts_abon.data_template', {})
+
     @http.route('/auth/signup', type='http', auth='public', website=True, csrf=False)
     def signup(self, **kwargs):
         if request.httprequest.method == 'POST':

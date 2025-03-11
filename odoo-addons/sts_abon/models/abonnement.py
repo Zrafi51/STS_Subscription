@@ -5,6 +5,7 @@ class Abonnement(models.Model):
     _name = 'sts_abon.abonnement'
     _description = 'STS Subscription Management'
 
+    abonne_id = fields.Many2one('sts_abon.abonne', string='Subscriber', required=True)
     creation_date = fields.Date(default=fields.Date.today)
 
     subscription_type_1 = fields.Selection([
@@ -32,7 +33,7 @@ class Abonnement(models.Model):
 
     #route_ids --> choix route(depart, arrivé, tariff)
     route_ids = fields.Many2many('resroutier.route', required=True)
-    card_receiving_point =fields.Char(string='Card Receiving Point', required=True)
+    #card_receiving_point =fields.Char(string='Card Receiving Point', required=True)
     
     # payment_status = fields.Selection([
     #     ('draft', 'Draft'),
