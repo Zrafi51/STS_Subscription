@@ -6,7 +6,6 @@ _logger = logging.getLogger(__name__)
 
 class AuthController(http.Controller):
 
-
     @http.route('/sts/save-profile', type='http', auth='user', website=True)
     def create_profile(self, **kwargs):
         if request.httprequest.method == 'POST':
@@ -146,3 +145,36 @@ class AuthController(http.Controller):
                     'error': str(e)
                 })
         return request.render('sts_abon.forgot_password_template', {})
+
+    @http.route('/auth/reset-password', type='http', auth='public', website=True, csrf=False)
+    def reset_password(self, **kwargs):
+        user_id = kwargs.get('user_id')
+        if request.httprequest.method == 'POST':
+            try:
+                user = request.env['sts_abon.user'].sudo().browse(int(user_id))
+                if user.verify_code(kwargs.get('code')):
+                    if kwargs.get('new_password') != kwargs.get('confirm_password'):
+                        return request.render('sts_abon.reset_password_template', {
+                            'user_id': user_id,
+                            'error': 'Passwords do not match'
+                        })
+                    user.write({'password': kwargs.get('new_password')})
+                    return request.redirect('/auth/login')
+                else:
+                    return request.render('sts_abon.reset_password_template', {
+                        'user_id': user_id,
+                        'error': 'Invalid verification code'
+                    })
+            except Exception as e:
+                _logger.error(f"Error during password reset: {str(e)}")
+                return request.render('sts_abon.reset_password_template', {
+                    'user_id': user_id,
+                    'error': str(e)
+                })
+        return request.render('sts_abon.reset_password_template', {
+            'user_id': user_id,
+        })
+
+    @http.route('/sts/home', type='http', auth='user', website=True)
+    def home(self, **kwargs):
+        return request.render('sts_abon.homepage_template', {})

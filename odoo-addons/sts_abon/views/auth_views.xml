@@ -5,6 +5,7 @@
         <field name="model">sts_abon.user</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="abonne_ids"/>
                 <field name="full_name"/>
                 <field name="phone"/>
                 <field name="is_verified"/>
@@ -20,6 +21,7 @@
             <form>
                 <sheet>
                     <group>
+                        <field name="abonne_ids"/>
                         <field name="name"/>
                         <field name="surname"/>
                         <field name="phone"/>
