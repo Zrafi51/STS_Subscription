@@ -1,9 +1,32 @@
 <odoo>
-
-    <template id="auth_login" inherit_id="web.login" name="Login with phone number">
-        <xpath expr="//button[@type='submit']" position="after">
-            <a href="/auth/login" class="btn btn-link pull-right">Login with phone number</a>
-        </xpath>
+    <template id="auth_login_template" name="Login Page">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title text-center mb-4">Login to Your Account</h2>
+                                <form action="/web/login" method="post">
+                                    <div class="mb-3">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" name="login" required="1" placeholder="+216 XX XXX XXX"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Password</label>
+                                        <input type="password" class="form-control" name="password" required="1"/>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">Login</button>
+                                        <a href="/web/signup" class="btn btn-secondary">Sign Up</a>
+                                        <a href="/web/reset_password" class="btn btn-link">Forgot Password?</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
     </template>
-
 </odoo>

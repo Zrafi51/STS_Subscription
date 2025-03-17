@@ -5,6 +5,32 @@ import hashlib
 import secrets
 from datetime import datetime, timedelta
 
+class ResUsers(models.Model):
+    _inherit = 'res.users'
+
+    phone_verified = fields.Boolean(string="Phone Verified", default=False)
+    verification_code = fields.Char(string="OTP Code")
+    verification_expiry = fields.Datetime(string="OTP Expiry")
+
+    def generate_otp(self):
+        """Generate a 6-digit OTP and set expiry."""
+        self.ensure_one()
+        otp = ''.join(secrets.choice('0123456789') for _ in range(6))
+        expiry = fields.Datetime.now() + timedelta(minutes=10)
+        self.write({
+            'verification_code': otp,
+            'verification_expiry': expiry,
+        })
+        return otp
+
+    def verify_otp(self, otp):
+        """Check if OTP is correct and not expired."""
+        self.ensure_one()
+        if self.verification_code == otp and fields.Datetime.now() < self.verification_expiry:
+            self.write({'phone_verified': True, 'verification_code': False, 'verification_expiry': False})
+            return True
+        return False
+
 class User(models.Model):
     _name = 'sts_abon.user'
     #_inherit = 'res.users'
